@@ -1,12 +1,12 @@
-const register = async (res, req) => {
+const register = async (req, res) => {
     res.send('admin create user account');
 }
 
-const login = async (res, req) => {
+const login = async (req, res) => {
     res.send('login user account')
 }
 
-const logout = async (res, req) => {
+const logout = async (req, res) => {
     res.send('logout user');
 }
 

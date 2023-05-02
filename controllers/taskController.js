@@ -1,16 +1,16 @@
-const createTask = async (res, req) => {
+const createTask = async (req, res) => {
     res.send('admin create task');
 }
 
-const getAllTasks = async (res, req) => {
+const getAllTasks = async (req, res) => {
     res.send('get all tasks');
 }
 
-const getTask = async (res, req) => {
+const getTask = async (req, res) => {
     res.send('show single task')
 }
 
-const assignTask = async (res, req) => {
+const assignTask = async (req, res) => {
     res.send('asign task to user')
 }
 
