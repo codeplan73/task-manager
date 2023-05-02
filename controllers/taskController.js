@@ -15,9 +15,5 @@ const assignTask = async (res, req) => {
 }
 
 module.exports = {
-    register, getUsers, getProfile
-}
-
-module.exports = {
     createTask, getAllTasks, getTask, assignTask
 }
