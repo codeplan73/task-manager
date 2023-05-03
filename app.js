@@ -6,6 +6,8 @@ const cookieParser = require('cookie-parser');
 
 const app = express()
 
+// connect db
+const connectDB = require('./db/connect');
 
 // routes
 const authRoutes = require('./routes/authRoutes');
@@ -20,12 +22,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use('/api/v1/auth', authRoutes)
 app.use('/api/v1/users', userRoutes)
 app.use('/api/v1/tasks', taskRoutes)
-
+ 
 
 const port = process.env.PORT;
 
 const start = async () => {
     try {
+        await connectDB(process.env.MONGO_URI)
         app.listen(port, console.log(`Server runing on port ${port}`))
     } catch (error) {
         console.log(error)
