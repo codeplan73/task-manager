@@ -10,12 +10,12 @@ const { authenticateUser, authorizePermissions } = require('../middleware/authen
 
 router
     .route('/')
-    .post([authenticateUser, authorizePermissions], createTask)
-    .get(getAllTasks)
+    .post([authenticateUser, authorizePermissions('admin')], createTask)
+    .get(authenticateUser, getAllTasks)
 
 router
     .route('/:id')
-    .get(getTask)
-    .patch([authenticateUser, authorizePermissions], assignTask)
+    .get(authenticateUser, getTask)
+    .patch([authenticateUser, authorizePermissions('admin')], assignTask)
 
 module.exports = router
