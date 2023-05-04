@@ -16,6 +16,6 @@ router
 router
     .route('/:id')
     .get(authenticateUser, getTask)
-    .patch([authenticateUser, authorizePermissions('admin')], assignTask)
+    .patch(authenticateUser, assignTask)
 
 module.exports = router
