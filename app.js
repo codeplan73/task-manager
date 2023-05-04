@@ -18,6 +18,7 @@ const taskRoutes = require('./routes/taskRoutes')
 app.use(express.json());
 app.use(morgan('tiny'));
 app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser(process.env.JWT_SECRET));
 
 app.use('/api/v1/auth', authRoutes)
 app.use('/api/v1/users', userRoutes)
