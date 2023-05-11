@@ -21,10 +21,6 @@ const ProjectSchema = mongoose.Schema({
         type:String,
         required: true,
         default: 'pending'
-    },
-    projectImage: {
-        type: String,
-        required: true
     }
 })
 

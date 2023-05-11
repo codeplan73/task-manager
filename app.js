@@ -12,6 +12,7 @@ const connectDB = require('./db/connect');
 // routes
 const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
+const projectRoutes = require('./routes/projectRoutes')
 const taskRoutes = require('./routes/taskRoutes')
 
 // app use package
@@ -22,6 +23,7 @@ app.use(cookieParser(process.env.JWT_SECRET));
 
 app.use('/api/v1/auth', authRoutes)
 app.use('/api/v1/users', userRoutes)
+app.use('/api/v1/projects', projectRoutes)
 app.use('/api/v1/tasks', taskRoutes)
  
 
