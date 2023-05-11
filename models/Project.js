@@ -25,7 +25,7 @@ const ProjectSchema = mongoose.Schema({
     projectImage: {
         type: String,
         required: true
-    } 
+    }
 })
 
 module.exports = mongoose.model('Project', ProjectSchema);

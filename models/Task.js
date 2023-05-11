@@ -9,10 +9,6 @@ const TaskSchema = mongoose.Schema({
         type: Date,
         required: true
     },
-    project: {
-        type: String,
-        required: true
-    },
     tag: {
         type: String,
         required: true
@@ -20,7 +16,12 @@ const TaskSchema = mongoose.Schema({
     description: {
         type: String,
         required: true
-    }
+    },
+    project: {
+        type: mongoose.Schema.ObjectId,
+        ref:'project',
+        required: true
+    },
 })
 
 module.exports = mongoose.model('Task', TaskSchema);
