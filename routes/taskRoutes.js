@@ -5,6 +5,7 @@ const {
     getAllTasks,
     assignTask,
     getTask,
+    updateTask
 } = require('./../controllers/taskController');
 const { authenticateUser, authorizePermissions } = require('../middleware/authentication');
 
@@ -16,6 +17,6 @@ router
 router
     .route('/:id')
     .get(authenticateUser, getTask)
-    .patch(authenticateUser, assignTask)
+    .patch(authenticateUser, updateTask)
 
 module.exports = router

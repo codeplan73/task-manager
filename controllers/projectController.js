@@ -19,20 +19,35 @@ const getAllProject = async (req, res) => {
 }
 
 const getProject = async (req, res) => {
-  const {projectId} = req.params;
+  const projectId = req.params.id;
 //   const project = Project.findOne({_id: ProjectId}).populate('tasks');
+
   const project = await Project.findOne({ _id: projectId })
-  const tasks = await Task.findById({project: projectId});
+  const tasks = await Task.find({project: projectId});
 
   if (!project) {
     throw new CustomError.NotFoundError(`No project with id: ${projectId}`)
   }
 
-  res.status(StatusCodes.OK).json({ project, tasks })
+  res.status(StatusCodes.OK).json({ project, projectTasks: tasks, totalTask: tasks.length })
 }
 
 const updatedProject = async (req, res) => {
-  res.send('admin update project')
+  const projectId = req.params.id;
+    const project = await Project.findOneAndUpdate({_id:projectId}, req.body, {
+        new:true,
+        runValidators: true,
+    });
+
+    if(!project){
+        throw new CustomError.NotFoundError(`No task with id : ${projectId}`);
+    }
+
+    res.status(StatusCodes.OK).json(project)
+}
+
+const deleteProject = async(req, res) => {
+
 }
 
 module.exports = {

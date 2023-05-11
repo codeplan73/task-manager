@@ -22,6 +22,11 @@ const TaskSchema = mongoose.Schema({
         ref:'project',
         required: true
     },
+    status: {
+      type: String,
+      required: true,
+      default: 'pending',
+    },
 })
 
 module.exports = mongoose.model('Task', TaskSchema);
