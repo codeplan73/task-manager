@@ -18,7 +18,28 @@ const getAllTasks = async (req, res) => {
 }
 
 const getTask = async (req, res) => {
-    res.send('show single task')
+    const taskId = req.params.id;
+  const task = await Task.findOne({ _id: taskId })
+
+  if (!task) {
+    throw new CustomError.NotFoundError(`No task with id: ${taskId}`)
+  }
+
+  res.status(StatusCodes.OK).json({ task })
+}
+
+const updateTask = async (req, res) => {
+    const taskId = req.params.id;
+    const task = await Task.findOneAndUpdate({_id:taskId}, req.body, {
+        new:true,
+        runValidators: true,
+    });
+
+    if(!task){
+        throw new CustomError.NotFoundError(`No task with id : ${taskId}`);
+    }
+
+    res.status(StatusCodes.OK).json(task)
 }
 
 const assignTask = async (req, res) => {
@@ -26,5 +47,5 @@ const assignTask = async (req, res) => {
 }
 
 module.exports = {
-    createTask, getAllTasks, getTask, assignTask
+    createTask, getAllTasks, getTask, updateTask, assignTask
 }
