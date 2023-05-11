@@ -20,7 +20,7 @@ const getAllProject = async (req, res) => {
 
 const getProject = async (req, res) => {
   const projectId = req.params.id
-  //   const project = Project.findOne({_id: ProjectId}).populate('tasks');
+  //   const project = Project.findOne({_id: projectId}).populate('tasks');
 
   const project = await Project.findOne({ _id: projectId })
   const tasks = await Task.find({ project: projectId })
@@ -49,15 +49,19 @@ const updatedProject = async (req, res) => {
 }
 
 const deleteProject = async (req, res) => {
-  const { id: productId } = req.params
+//   const projectId = req.params.id
+  const { id: projectId } = req.params;
 
-  const product = await Product.findOne({ _id: productId })
+  const project = await Project.findOne({ _id: projectId })
 
-  if (!product) {
-    throw new CustomError.NotFoundError(`No product with id : ${productId}`)
+  if (!project) {
+    throw new CustomError.NotFoundError(`No product with id : ${projectId}`)
   }
 
-  await product.remove()
+  await project.deleteOne({ _id: projectId})
+
+//   await project.remove();
+  
   res.status(StatusCodes.OK).json({ msg: 'Success! Product removed.' })
 }
 
