@@ -1,7 +1,7 @@
 const { StatusCodes } = require('http-status-codes')
 const CustomError = require('../errors')
 const Project = require('./../models/Project')
-const Task  = require('./../models/Task')
+const Task = require('./../models/Task')
 
 const createProject = async (req, res) => {
   const { name, category, description, privacy } = req.body
@@ -19,35 +19,46 @@ const getAllProject = async (req, res) => {
 }
 
 const getProject = async (req, res) => {
-  const projectId = req.params.id;
-//   const project = Project.findOne({_id: ProjectId}).populate('tasks');
+  const projectId = req.params.id
+  //   const project = Project.findOne({_id: ProjectId}).populate('tasks');
 
   const project = await Project.findOne({ _id: projectId })
-  const tasks = await Task.find({project: projectId});
+  const tasks = await Task.find({ project: projectId })
 
   if (!project) {
     throw new CustomError.NotFoundError(`No project with id: ${projectId}`)
   }
 
-  res.status(StatusCodes.OK).json({ project, projectTasks: tasks, totalTask: tasks.length })
+  res
+    .status(StatusCodes.OK)
+    .json({ project, projectTasks: tasks, totalTask: tasks.length })
 }
 
 const updatedProject = async (req, res) => {
-  const projectId = req.params.id;
-    const project = await Project.findOneAndUpdate({_id:projectId}, req.body, {
-        new:true,
-        runValidators: true,
-    });
+  const projectId = req.params.id
+  const project = await Project.findOneAndUpdate({ _id: projectId }, req.body, {
+    new: true,
+    runValidators: true,
+  })
 
-    if(!project){
-        throw new CustomError.NotFoundError(`No task with id : ${projectId}`);
-    }
+  if (!project) {
+    throw new CustomError.NotFoundError(`No task with id : ${projectId}`)
+  }
 
-    res.status(StatusCodes.OK).json(project)
+  res.status(StatusCodes.OK).json(project)
 }
 
-const deleteProject = async(req, res) => {
+const deleteProject = async (req, res) => {
+  const { id: productId } = req.params
 
+  const product = await Product.findOne({ _id: productId })
+
+  if (!product) {
+    throw new CustomError.NotFoundError(`No product with id : ${productId}`)
+  }
+
+  await product.remove()
+  res.status(StatusCodes.OK).json({ msg: 'Success! Product removed.' })
 }
 
 module.exports = {
@@ -55,4 +66,5 @@ module.exports = {
   getAllProject,
   getProject,
   updatedProject,
+  deleteProject
 }
