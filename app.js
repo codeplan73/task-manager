@@ -3,6 +3,12 @@ require('express-async-errors');
 const express = require('express');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
+const cors = require('cors');
+const corsOptions ={
+    origin:'http://localhost:5173/', 
+    credentials:true,            //access-control-allow-credentials:true
+    optionSuccessStatus:200
+}
 
 const app = express()
 
@@ -18,6 +24,7 @@ const taskRoutes = require('./routes/taskRoutes')
 // app use package
 app.use(express.json());
 app.use(morgan('tiny'));
+app.use(cors(corsOptions));
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser(process.env.JWT_SECRET));
 
