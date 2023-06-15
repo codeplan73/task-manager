@@ -4,11 +4,6 @@ const express = require('express');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
-const corsOptions ={
-    origin:'http://localhost:5173/', 
-    credentials:true,            //access-control-allow-credentials:true
-    optionSuccessStatus:200
-}
 
 const app = express()
 
@@ -22,6 +17,7 @@ const projectRoutes = require('./routes/projectRoutes')
 const taskRoutes = require('./routes/taskRoutes')
 
 // app use package
+app.use(cors())
 app.use(express.json());
 app.use(morgan('tiny'));
 app.use(cors(corsOptions));
