@@ -6,6 +6,8 @@ const cookieParser = require('cookie-parser');
 const cors = require('cors');
 
 const app = express()
+app.use(cors())
+
 
 // connect db
 const connectDB = require('./db/connect');
@@ -17,7 +19,6 @@ const projectRoutes = require('./routes/projectRoutes')
 const taskRoutes = require('./routes/taskRoutes')
 
 // app use package
-app.use(cors())
 app.use(express.json());
 app.use(morgan('tiny'));
 app.use(cors(corsOptions));
